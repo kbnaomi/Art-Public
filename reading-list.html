@@ -7,16 +7,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --ink: #666193;
       --ink-light: #6b6560;
       --accent: #d1a2a9;
       --rule: #d8d2c8;
     }
-
+ 
     html { font-size: 18px; scroll-behavior: smooth; }
-
+ 
     body {
       background: #000000;
       color: #FFFFFF;
@@ -24,7 +24,7 @@
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
     }
-
+ 
     /* ── HEADER ── */
     header {
       padding: 2.5rem 2rem 1.5rem;
@@ -34,7 +34,7 @@
       background: #000000;
       z-index: 100;
     }
-
+ 
     header::after {
       content: '';
       display: block;
@@ -43,7 +43,7 @@
       height: 1px;
       background: var(--rule);
     }
-
+ 
     .site-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.9rem;
@@ -52,16 +52,17 @@
       color: #FFFFFF;
       text-decoration: none;
     }
-
+ 
     nav {
       margin-top: 1rem;
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
     }
-
+ 
     nav a {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -69,10 +70,10 @@
       transition: color 0.2s;
       font-family: 'Trebuchet MS', Georgia, serif;
     }
-
+ 
     nav a:hover { color: var(--accent); }
     nav a.active { color: var(--accent); }
-
+ 
     /* ── TABLE ── */
     .table-wrapper {
       max-width: 900px;
@@ -80,7 +81,7 @@
       padding: 0 3rem 6rem;
       animation: fadeIn 0.7s ease 0.1s both;
     }
-
+ 
     /* ── BOOK ROW ── */
     .book-row {
       display: grid;
@@ -92,27 +93,27 @@
       cursor: default;
       transition: background 0.15s;
     }
-
+ 
     .book-row:hover {
       background: #0d0d0d;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
       margin: 0 -0.5rem;
     }
-
+ 
     .book-num {
       font-family: 'Courier Prime', monospace;
       font-size: 0.7rem;
       color: #333;
       letter-spacing: 0.05em;
     }
-
+ 
     .book-title-col {
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
     }
-
+ 
     .book-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1rem;
@@ -121,7 +122,7 @@
       color: #FFFFFF;
       line-height: 1.3;
     }
-
+ 
     .book-note {
       font-size: 0.78rem;
       color: var(--ink-light);
@@ -130,13 +131,13 @@
       line-height: 1.4;
       margin-top: 0.1rem;
     }
-
+ 
     .book-author {
       font-family: 'Trebuchet MS', Georgia, serif;
       font-size: 0.92rem;
       color: #aaa;
     }
-
+ 
     .book-genre {
       font-family: 'Courier Prime', monospace;
       font-size: 0.65rem;
@@ -144,16 +145,15 @@
       text-transform: uppercase;
       color: var(--accent);
     }
-
+ 
     .book-nationality {
       font-family: 'Trebuchet MS', monospace;
       font-size: 0.65rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      color: var(--ink-light);
     }
-
-    .book-nationality { color: var(--ink-light); }
-
+ 
     /* ── SECTION DIVIDER ── */
     .section-label {
       font-family: 'Courier Prime', monospace;
@@ -165,7 +165,7 @@
       border-bottom: 1px solid var(--rule);
       margin-top: 1rem;
     }
-
+ 
     /* ── FOOTER ── */
     footer {
       padding: 2rem;
@@ -175,7 +175,7 @@
       letter-spacing: 0.05em;
       font-family: 'Trebuchet MS', Georgia, serif;
     }
-
+ 
     footer::before {
       content: '';
       display: block;
@@ -184,26 +184,38 @@
       height: 1px;
       background: var(--rule);
     }
-
+ 
     /* ── ANIMATIONS ── */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
+ 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
-      .book-row { grid-template-columns: 1fr 5rem; }
-      .book-num,
+      header { padding: 1.5rem 1rem 1rem; }
+      .site-title { font-size: 1.5rem; }
+      nav { gap: 0.5rem 1rem; }
+      nav a { font-size: 0.7rem; }
+ 
+      .table-wrapper { padding: 0 1.25rem 4rem; }
+ 
+      .book-row {
+        grid-template-columns: 1.5rem 1fr;
+        gap: 0.75rem;
+      }
+ 
       .book-author,
-      .book-genre { display: none; }
-
-      .table-wrapper { padding: 0 1.5rem 4rem; }
+      .book-genre,
+      .book-nationality { display: none; }
+ 
+      .book-title { font-size: 0.95rem; }
+      .book-note { font-size: 0.75rem; }
     }
   </style>
 </head>
 <body>
-
+ 
   <!-- HEADER -->
   <header>
     <a class="site-title" href="index.html">Art Public</a>
@@ -215,12 +227,12 @@
       <a href="about.html">About</a>
     </nav>
   </header>
-
+ 
   <!-- TABLE -->
   <div class="table-wrapper">
-
+ 
     <div class="section-label">2026</div>
-
+ 
     <div class="book-row">
       <span class="book-num">80</span>
       <div class="book-title-col">
@@ -231,7 +243,7 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">Russian</span>
     </div>
-
+ 
     <div class="book-row">
       <span class="book-num">81</span>
       <div class="book-title-col">
@@ -242,7 +254,7 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">Austrian</span>
     </div>
-
+ 
     <div class="book-row">
       <span class="book-num">82</span>
       <div class="book-title-col">
@@ -253,7 +265,7 @@
       <span class="book-genre">Non-Fiction | Civil War</span>
       <span class="book-nationality">American</span>
     </div>
-
+ 
     <div class="book-row">
       <span class="book-num">83</span>
       <div class="book-title-col">
@@ -264,8 +276,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">84</span>
       <div class="book-title-col">
         <span class="book-title">Einstein's Dreams</span>
@@ -275,8 +287,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">85</span>
       <div class="book-title-col">
         <span class="book-title">The Moon is a Harsh Mistress</span>
@@ -286,8 +298,8 @@
       <span class="book-genre">Sci-Fi</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">86</span>
       <div class="book-title-col">
         <span class="book-title">Neuromancer</span>
@@ -297,8 +309,8 @@
       <span class="book-genre">Sci-Fi</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">87</span>
       <div class="book-title-col">
         <span class="book-title">Fight Club</span>
@@ -308,8 +320,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">88</span>
       <div class="book-title-col">
         <span class="book-title">Out of the Silent Planet</span>
@@ -319,8 +331,8 @@
       <span class="book-genre">Fantasy</span>
       <span class="book-nationality">British</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">89</span>
       <div class="book-title-col">
         <span class="book-title">The Hidden Girl and Other Stories</span>
@@ -330,8 +342,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">Chinese American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num"></span>
       <div class="book-title-col">
         <span class="book-title">Intermission</span>
@@ -341,8 +353,8 @@
       <span class="book-genre">Intermission</span>
       <span class="book-nationality"></span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">90</span>
       <div class="book-title-col">
         <span class="book-title">The Republic</span>
@@ -352,8 +364,8 @@
       <span class="book-genre">Non-fiction | Philosophy</span>
       <span class="book-nationality">Greek</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">91</span>
       <div class="book-title-col">
         <span class="book-title">The Authentic Life of Billy the Kid</span>
@@ -363,8 +375,8 @@
       <span class="book-genre">Non-Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">92</span>
       <div class="book-title-col">
         <span class="book-title">Oh God, the Sun Goes</span>
@@ -374,8 +386,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">93</span>
       <div class="book-title-col">
         <span class="book-title">The Bluest Eye</span>
@@ -385,8 +397,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">94</span>
       <div class="book-title-col">
         <span class="book-title">The Consolation of Philosophy</span>
@@ -396,8 +408,8 @@
       <span class="book-genre">Non-Fiction | Philosophy</span>
       <span class="book-nationality">Roman</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">95</span>
       <div class="book-title-col">
         <span class="book-title">Knowing the Score</span>
@@ -407,20 +419,19 @@
       <span class="book-genre">Non-Fiction | Philosophy</span>
       <span class="book-nationality">British</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">96</span>
       <div class="book-title-col">
-        <span class="book-title">Jurassic Park </span>
+        <span class="book-title">Jurassic Park</span>
         <span class="book-note">Luke | October</span>
       </div>
       <span class="book-author">Michael Crichton</span>
       <span class="book-genre">Sci-Fi</span>
       <span class="book-nationality">American</span>
     </div>
-
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num">97</span>
       <div class="book-title-col">
         <span class="book-title">The Sheltering Sky</span>
@@ -430,8 +441,8 @@
       <span class="book-genre">Fiction</span>
       <span class="book-nationality">American</span>
     </div>
-
-   <div class="book-row">
+ 
+    <div class="book-row">
       <span class="book-num"></span>
       <div class="book-title-col">
         <span class="book-title">Holiday Break</span>
@@ -441,14 +452,13 @@
       <span class="book-genre">Holiday Break</span>
       <span class="book-nationality"></span>
     </div>
-
-
+ 
   </div>
-
+ 
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Art Public</p>
   </footer>
-
+ 
 </body>
 </html>
