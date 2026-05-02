@@ -7,19 +7,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --ink: #666193;
       --ink-light: #6b6560;
       --paper: #faf8f4;
-      --paper-warm: #f2ede4;
       --accent: #d1a2a9;
       --rule: #d8d2c8;
       --max: 720px;
     }
-
+ 
     html { font-size: 18px; scroll-behavior: smooth; }
-
+ 
     body {
       background: #000000;
       color: #FFFFFF;
@@ -27,7 +26,7 @@
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
     }
-
+ 
     /* ── HEADER ── */
     header {
       padding: 2.5rem 2rem 1.5rem;
@@ -37,7 +36,7 @@
       background: #000000;
       z-index: 100;
     }
-
+ 
     header::after {
       content: '';
       display: block;
@@ -46,7 +45,7 @@
       height: 1px;
       background: var(--rule);
     }
-
+ 
     .site-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.9rem;
@@ -55,25 +54,26 @@
       color: #FFFFFF;
       text-decoration: none;
     }
-
+ 
     nav {
       margin-top: 1rem;
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
     }
-
+ 
     nav a {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-light);
       text-decoration: none;
       transition: color 0.2s;
     }
-
+ 
     nav a:hover { color: var(--accent); }
-
+ 
     /* ── HERO ── */
     .hero {
       max-width: var(--max);
@@ -82,7 +82,7 @@
       text-align: center;
       animation: fadeUp 0.7s ease both;
     }
-
+ 
     .hero-label {
       font-size: 0.75rem;
       letter-spacing: 0.14em;
@@ -90,15 +90,15 @@
       color: #FFFFFF;
       margin-bottom: 1rem;
     }
-
+ 
     .hero h3 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-size: clamp(2rem, 6vw, 3.2rem);
       font-weight: 400;
       line-height: 1.25;
       color: #FFFFFF;
     }
-
+ 
     .book-author {
       font-family: 'EB Garamond', serif;
       font-size: 1.1rem;
@@ -106,7 +106,7 @@
       color: var(--ink-light);
       margin-top: 0.5rem;
     }
-
+ 
     .hero-excerpt {
       margin-top: 1.5rem;
       font-size: 1.05rem;
@@ -115,7 +115,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-
+ 
     .btn {
       display: inline-block;
       margin-top: 2rem;
@@ -128,9 +128,9 @@
       text-transform: uppercase;
       transition: background 0.2s, color 0.2s;
     }
-
+ 
     .btn:hover { background: var(--ink); color: var(--paper); }
-
+ 
     /* ── FOOTER ── */
     footer {
       padding: 2rem;
@@ -139,7 +139,7 @@
       color: #d1a2a9;
       letter-spacing: 0.05em;
     }
-
+ 
     footer::before {
       content: '';
       display: block;
@@ -148,24 +148,28 @@
       height: 1px;
       background: var(--rule);
     }
-
+ 
     footer a { color: var(--ink-light); text-decoration: underline; }
-
+ 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
+ 
     /* ── RESPONSIVE ── */
     @media (max-width: 560px) {
-      nav { gap: 1.2rem; }
-      .hero { margin-top: 3rem; }
+      header { padding: 1.5rem 1rem 1rem; }
+      .site-title { font-size: 1.5rem; }
+      nav { gap: 0.5rem 1rem; }
+      nav a { font-size: 0.7rem; }
+      .hero { margin-top: 2.5rem; }
+      .hero-excerpt { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
-
+ 
   <!-- HEADER -->
   <header>
     <a class="site-title" href="#">Art Public</a>
@@ -177,22 +181,22 @@
       <a href="about.html">About</a>
     </nav>
   </header>
-
+ 
   <!-- FEATURED POST / HERO -->
   <section class="hero">
     <h4 class="hero-label">Book Review</h4>
     <h3>Robert E. Lee</h3>
-    <p class="book-author">Allen C Guezlo</p>
+    <p class="book-author">Allen C Guelzo</p>
     <p class="hero-excerpt">
-      Lee's loyalty to Virginia wasn't abstract - it was his home, his family, his legacy. And surprisingly, he never really sought the role history handed him.
+      Lee's loyalty to Virginia wasn't abstract — it was his home, his family, his legacy. And surprisingly, he never really sought the role history handed him.
     </p>
     <a class="btn" href="review.html">Read the review</a>
   </section>
-
+ 
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Art Public</p>
   </footer>
-
+ 
 </body>
 </html>
