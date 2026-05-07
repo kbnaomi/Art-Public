@@ -172,7 +172,7 @@
  
   <!-- HEADER -->
   <header>
-    <a class="site-title" href="#">Art Public</a>
+    <a class="site-title" href="index.html">Art Public</a>
     <nav>
       <a href="reading-list.html">Reading List</a>
       <a href="review.html">Reviews</a>
@@ -185,11 +185,9 @@
   <!-- FEATURED POST / HERO -->
   <section class="hero">
     <h4 class="hero-label">Book Review</h4>
-    <h3>Robert E. Lee</h3>
-    <p class="book-author">Allen C Guelzo</p>
-    <p class="hero-excerpt">
-      Lee's loyalty to Virginia wasn't abstract — it was his home, his family, his legacy. And surprisingly, he never really sought the role history handed him.
-    </p>
+    <h3 id="hero-title"></h3>
+    <p class="book-author" id="hero-author"></p>
+    <p class="hero-excerpt" id="hero-excerpt"></p>
     <a class="btn" href="review.html">Read the review</a>
   </section>
  
@@ -197,6 +195,14 @@
   <footer>
     <p>© 2026 Art Public</p>
   </footer>
+ 
+  <script src="reviews.js"></script>
+  <script>
+    const featured = REVIEWS[0];
+    document.getElementById('hero-title').textContent   = featured.title;
+    document.getElementById('hero-author').textContent  = featured.author;
+    document.getElementById('hero-excerpt').textContent = featured.excerpt;
+  </script>
  
 </body>
 </html>
