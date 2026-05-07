@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Robert E. Lee — Review — Art Public</title>
+  <title>Reviews — Art Public</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -57,12 +57,11 @@
       margin-top: 1rem;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
+      gap: 2rem;
     }
  
     nav a {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -111,8 +110,7 @@
     .review-meta {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem 1.5rem;
+      gap: 1.5rem;
       margin-top: 1.75rem;
       padding-bottom: 1.75rem;
       border-bottom: 1px solid #1a1a1a;
@@ -143,37 +141,24 @@
     .review-body p {
       font-size: 1.05rem;
       color: #cccccc;
-      margin-top: 1.5rem;
+      margin-top: 1.5rem; 
       margin-bottom: 1.5rem;
     }
  
     .question {
       font-size: 1.05rem;
       color: #cccccc;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
       font-family: 'Trebuchet MS';
     }
  
-    /* ── DROP CAP ── */
-    .qa-block p:not(.question):first-of-type::first-letter {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 3.5rem;
-      font-weight: 600;
-      line-height: 0.8;
-      float: left;
-      margin-right: 0.1em;
-      margin-top: 0.1em;
-      color: var(--accent);
-    }
  
     /* ── SECTION BREAK ── */
     .section-break {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1.5rem;
+      margin: 2.5rem 0;
     }
  
     .section-break::before,
@@ -220,6 +205,20 @@
       color: var(--ink-light);
     }
  
+    /* ── REVIEW DIVIDER ── */
+    .review-divider {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+ 
+    .review-divider hr {
+      border: none;
+      height: 1px;
+      background: var(--rule);
+      margin-bottom: 5rem;
+    }
+ 
     /* ── FOOTER ── */
     footer {
       padding: 2rem;
@@ -247,15 +246,9 @@
  
     /* ── RESPONSIVE ── */
     @media (max-width: 560px) {
-      header { padding: 1.5rem 1rem 1rem; }
-      .site-title { font-size: 1.5rem; }
-      nav { gap: 0.5rem 1rem; }
-      nav a { font-size: 0.7rem; }
- 
-      .review-wrapper { margin-top: 2.5rem; padding: 0 1.25rem; }
+      .review-wrapper { margin-top: 3rem; }
+      .review-meta { flex-wrap: wrap; gap: 1rem; }
       .meta-divider { display: none; }
-      .review-body p,
-      .question { font-size: 1rem; }
     }
   </style>
 </head>
@@ -273,7 +266,7 @@
     </nav>
   </header>
  
-  <!-- REVIEW -->
+  <!-- REVIEW 1: Robert E. Lee -->
   <article class="review-wrapper">
  
     <p class="review-label">Book Review</p>
@@ -330,7 +323,7 @@
           The most pertinent insight into Lee's decision to resign from the U.S. Army, side with the South, and accept a position as an officer in the Confederate Army is of course his loyalty to Virginia. Which I was aware of — but loyalty to a state is a more abstract idea today. There was certainly more of a notion then that the states were in some ways independent, only in a somewhat loose binding with the larger union.
         </p>
         <p>
-          But even more than that is the simple reality of the logistics. What does it mean to be loyal to the state? More so than today, the state was his home, his family, his inheritance. He was driven to provide for his family, and leaving Virginia would have meant uprooting all roots of posterity, again so heavily tied to the Arlington estate. In a lot of ways Lee seemed to be in the wrong place and the wrong time — a thought that ran parallel to one I had reading Grant, in that neither man was really actively seeking out the position he wound up in.
+          But even more than that is the simple reality of the logistics. What does it mean to be loyal to the state? More so than today, the state was his home, his family, his inheritance. He was driven to provide for his family, and leaving Virginia would have meant uprooting all roots of posterity, again so heavily tied to the Arlington estate. In a lot of ways Lee seemed to be in the wrong place and the wrong time - a thought that ran parallel to one I had reading Grant, in that neither man was really actively seeking out the position he wound up in.
         </p>
       </div>
  
@@ -340,6 +333,72 @@
       <span class="rating-label">Rating</span>
       <span class="rating-value">4</span>
       <span class="rating-max">/ 5</span>
+    </div>
+ 
+  </article>
+ 
+  <!-- DIVIDER -->
+  <div class="review-divider">
+    <hr />
+  </div>
+ 
+  <!-- REVIEW 2: The Master and Margarita -->
+  <article class="review-wrapper" style="margin-top: 0;">
+ 
+    <p class="review-label">Book Review</p>
+ 
+    <h1 class="review-title">The Master and Margarita</h1>
+    <p class="review-author-book">Mikhail Bulgakov</p>
+ 
+    <div class="review-meta">
+      <div class="meta-item">
+        Reviewed by
+        <span>Luke Brown</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        Genre
+        <span>Fiction</span>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-item">
+        Date
+        <span>January 2026</span>
+      </div>
+    </div>
+ 
+    <div class="review-body">
+ 
+      <div class="qa-block">
+        <p>
+          This was a jumper; I saw it a couple of times on Twitter and a vodka drinking tomcat sounded too good to pass up. Interesting what books go straight on the list and some get bumped down. Incidentally, I discovered that this book was also on the list of my friend Kevin. Being drawn for the first of the year again asserts it.
+        </p>
+        <p>
+          So I was fairly excited for this one, and it maybe seemed to not disappoint early on. Fine writing, comedy, Pontius was interesting, although the portrayal of Jesus is as always inherently somehow uncomfortable. I am not sure exactly where I thought the story would go, but it was fairly different than I expected, and it did seem a bit winding — a lot of characters and situations to keep track of, and some feel extraneous. Not sure why but the romance, as it tends to for me, fell flat. Also, Margarita's ultimate sacrifice was somewhat lost on me as I mainly became aware of it in reviewing it.
+        </p>
+        <p>
+          But that is the harsh part. It was enjoyable, the highlights being comedy primarily supplied by the henchmen. It was certainly readable, and is fairly quick. Not a bad book, but fell short of some expectations and struggles with the weight of all the threads.
+        </p>
+      </div>
+ 
+      <div class="section-break"><span class="section-break-glyph">◆</span></div>
+ 
+      <div class="qa-block">
+        <p class="question"><strong>Is it ethical for an outsider to judge and intervene in another society's issues? What framework might you use to evaluate this?</strong></p>
+        <p>
+          Framework, framework. Well a framework might be that there is a supernatural judge in whom the law exists — and then the question is not whether it is ethical but what do you do about it. On the level of countries it depends obviously. Clearly there is some point where countries feel compelled to act in foreign policy. Where that point is and how history has measured up to it is obviously an entire field.
+        </p>
+        <p>
+          Outside answering the question, this did not really cross my mind in the reading as I did not feel the source of judgement was a sticking point. Not so much about the who but the why.
+        </p>
+      </div>
+ 
+    </div>
+ 
+    <div class="review-rating">
+      <span class="rating-label">Rating</span>
+      <span class="rating-value">3</span>
+      <span class="rating-max">/ 6</span>
     </div>
  
   </article>
