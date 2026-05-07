@@ -80,3 +80,15 @@ const REVIEWS = [
     ]
   }
 ];
+ 
+// Converts a title to a URL-safe anchor id, e.g. "The Road" → "the-road"
+function titleToId(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
+ 
+// Set of all reviewed titles for quick lookup
+const REVIEWED_TITLES = new Set(REVIEWS.map(r => r.title));
