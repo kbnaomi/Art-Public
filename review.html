@@ -303,10 +303,11 @@
         }).join('');
       }
  
+      const id = titleToId(review.title);
       const marginStyle = isFirst ? '' : ' style="margin-top: 0;"';
  
       return `
-        <article class="review-wrapper"${marginStyle}>
+        <article class="review-wrapper" id="${id}"${marginStyle}>
           <p class="review-label">Book Review</p>
           <h1 class="review-title">${review.title}</h1>
           <p class="review-author-book">${review.author}</p>
