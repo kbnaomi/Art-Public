@@ -227,8 +227,8 @@
  
     <p class="quotes-label">Book Quotes</p>
  
-    <h1 class="quotes-title">Einstein's Dreams</h1>
-    <p class="quotes-author-book">Alan Lightman</p>
+    <h1 class="quotes-title"></h1>
+    <p class="quotes-author-book"></p>
  
     <div class="quotes-meta">
       <div class="meta-item">
@@ -248,18 +248,7 @@
     </div>
  
     <div class="quotes-body">
-      <div class="quote-block">
-        <p>
-          "They lie in tall grass and are questioned by poets and painters from all over the world.
-          These time-deaf are beseeched to describe the precise placement of trees in the spring,
-          the shape of snow on the Alps, the angle of sun on a church, the position of rivers, the location of moss,
-          the pattern of birds in a flock. Yet the time-deaf are unable to speak what they know. For speech needs
-          a sequence of words, spoken in time."
-        </p>
-      </div>
- 
       <div class="section-break"><span class="section-break-glyph">◆</span></div>
- 
     </div>
  
   </article>
@@ -269,5 +258,43 @@
     <p>© 2026 Art Public</p>
   </footer>
  
+  <script>
+    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+  
+    async function loadQuotes() {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/quotes?order=id.asc`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  })
+
+  const quotes = await response.json()
+  const container = document.querySelector('.quotes-body')
+
+  // Update meta from first quote
+  const first = quotes[0]
+  document.querySelector('.quotes-title').textContent = first.book_title
+  document.querySelector('.quotes-author-book').textContent = first.book_author
+
+  container.innerHTML = ''
+
+  quotes.forEach((quote, index) => {
+    if (index > 0) {
+      container.innerHTML += `<div class="section-break"><span class="section-break-glyph">◆</span></div>`
+    }
+    container.innerHTML += `
+      <div class="quote-block">
+        <p>"${quote.quote_text}"</p>
+      </div>
+    `
+  })
+}
+  
+    loadQuotes()
+  </script>
+
+
 </body>
 </html>
