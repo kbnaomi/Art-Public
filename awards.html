@@ -245,53 +245,45 @@
         <span>2026</span>
       </div>
     </div>
- 
-    <!-- BEST BOOK -->
-    <div class="award-block">
-      <p class="award-category">Best Book</p>
-      <p class="award-winner">Book Title Here</p>
-      <p class="award-detail">Author · Reader · Month</p>
-      <p class="award-note">Notes</p>
-    </div>
- 
-    <!-- BEST WRITING -->
-    <div class="award-block">
-      <p class="award-category">Best Writing</p>
-      <p class="award-winner">Book Title Here</p>
-      <p class="award-detail">Author · Reader · Month</p>
-      <p class="award-note">Notes</p>
-    </div>
- 
-    <!-- BEST NON-FICTION -->
-    <div class="award-block">
-      <p class="award-category">Best Non-Fiction</p>
-      <p class="award-winner">Book Title Here</p>
-      <p class="award-detail">Author · Reader · Month</p>
-      <p class="award-note">Notes</p>
-    </div>
- 
-    <!-- BEST SUPPORTING CHARACTER -->
-    <div class="award-block">
-      <p class="award-category">Best Supporting Character</p>
-      <p class="award-winner">Character Name Here</p>
-      <p class="award-detail">Book · Reader · Month</p>
-      <p class="award-note">Notes</p>
-    </div>
- 
-    <!-- BEST CHARACTER -->
-    <div class="award-block">
-      <p class="award-category">Best Character</p>
-      <p class="award-winner">Character Name Here</p>
-      <p class="award-detail">Book · Reader · Month</p>
-      <p class="award-note">Notes</p>
-    </div>
- 
   </article>
  
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Art Public</p>
   </footer>
+
+  <script>
+    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+  
+    async function loadAwards() {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/awards?year=eq.2026&order=id.asc`, {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      })
+  
+      const awards = await response.json()
+      const container = document.querySelector('.awards-wrapper')
+  
+      // Remove hardcoded award blocks
+      document.querySelectorAll('.award-block').forEach(el => el.remove())
+  
+      awards.forEach(award => {
+        container.innerHTML += `
+          <div class="award-block">
+            <p class="award-category">${award.category}</p>
+            <p class="award-winner">${award.winner}</p>
+            <p class="award-detail">${award.detail}</p>
+            <p class="award-note">${award.note}</p>
+          </div>
+        `
+      })
+    }
+  
+    loadAwards()
+  </script>
  
 </body>
 </html>
