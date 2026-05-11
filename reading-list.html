@@ -176,7 +176,6 @@
       padding: 0.1rem 0.35rem;
       margin-left: 0.5rem;
       vertical-align: middle;
-      opacity: 0.7;
     }
  
     /* ── SECTION DIVIDER ── */
@@ -267,53 +266,63 @@
     <p>© 2026 Art Public</p>
   </footer>
  
-  <script src="reviews.js"></script>
   <script>
-    const books = [
-      { num: "80", title: "The Master and Margarita", note: "Luke | January",       author: "Mikhail Bulgakov",    genre: "Fiction",                    nationality: "Russian" },
-      { num: "81", title: "The Loser",                note: "Naomi | January",      author: "Thomas Bernhard",     genre: "Fiction",                    nationality: "Austrian" },
-      { num: "82", title: "Robert E. Lee",            note: "Luke | February",      author: "Allen C Guelzo",      genre: "Non-Fiction | Civil War",     nationality: "American" },
-      { num: "83", title: "The Road",                 note: "Naomi | February",     author: "Cormac McCarthy",     genre: "Fiction",                    nationality: "American" },
-      { num: "84", title: "Einstein's Dreams",        note: "Luke | March",         author: "Alan Lightman",       genre: "Fiction",                    nationality: "American" },
-      { num: "85", title: "The Moon is a Harsh Mistress", note: "Naomi | March",   author: "Robert A. Heinlein",  genre: "Sci-Fi",                     nationality: "American" },
-      { num: "86", title: "Neuromancer",              note: "Luke | April",         author: "William Gibson",      genre: "Sci-Fi",                     nationality: "American" },
-      { num: "87", title: "Fight Club",               note: "Naomi | April",        author: "Chuck Palahniuk",     genre: "Fiction",                    nationality: "American" },
-      { num: "88", title: "Out of the Silent Planet", note: "Luke | May",           author: "C. S. Lewis",         genre: "Fantasy",                    nationality: "British" },
-      { num: "89", title: "The Hidden Girl and Other Stories", note: "Naomi | May", author: "Ken Liu",             genre: "Fiction",                    nationality: "Chinese American" },
-      { num: "",   title: "Intermission",             note: "June",                 author: "",                    genre: "Intermission",               nationality: "" },
-      { num: "90", title: "The Republic",             note: "Luke | July",          author: "Plato",               genre: "Non-fiction | Philosophy",   nationality: "Greek" },
-      { num: "91", title: "The Authentic Life of Billy the Kid", note: "Naomi | July", author: "Pat Garrett",     genre: "Non-Fiction",                nationality: "American" },
-      { num: "92", title: "Oh God, the Sun Goes",     note: "Luke | August",        author: "David O'Conner",      genre: "Fiction",                    nationality: "American" },
-      { num: "93", title: "The Bluest Eye",           note: "Naomi | August",       author: "Toni Morrison",       genre: "Fiction",                    nationality: "American" },
-      { num: "94", title: "The Consolation of Philosophy", note: "Luke | September", author: "Boethius",           genre: "Non-Fiction | Philosophy",   nationality: "Roman" },
-      { num: "95", title: "Knowing the Score",        note: "Naomi | September",    author: "David Papineau",      genre: "Non-Fiction | Philosophy",   nationality: "British" },
-      { num: "96", title: "Jurassic Park",            note: "Luke | October",       author: "Michael Crichton",    genre: "Sci-Fi",                     nationality: "American" },
-      { num: "97", title: "The Sheltering Sky",       note: "Luke | October",       author: "Paul Bowles",         genre: "Fiction",                    nationality: "American" },
-      { num: "",   title: "Holiday Break",            note: "November | December",  author: "",                    genre: "Holiday Break",              nationality: "" },
-    ];
- 
-    const container = document.getElementById('book-list');
- 
-    books.forEach(book => {
-      const hasReview = REVIEWED_TITLES.has(book.title);
-      const titleHTML = hasReview
-        ? `<a class="book-title" href="review.html#${titleToId(book.title)}">${book.title}<span class="reviewed-badge">Review</span></a>`
-        : `<span class="book-title">${book.title}</span>`;
- 
-      container.innerHTML += `
-        <div class="book-row">
-          <span class="book-num">${book.num}</span>
-          <div class="book-title-col">
-            ${titleHTML}
-            <span class="book-note">${book.note}</span>
-          </div>
-          <span class="book-author">${book.author}</span>
-          <span class="book-genre">${book.genre}</span>
-          <span class="book-nationality">${book.nationality}</span>
+    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+
+
+  function titleToId(title) {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-');
+  }
+
+  async function loadBooks() {
+  // Fetch reviewed titles from Supabase
+  const reviewsResponse = await fetch(`${SUPABASE_URL}/rest/v1/reviews?select=title`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  })
+  const reviews = await reviewsResponse.json()
+  const reviewedTitles = new Set(reviews.map(r => r.title))
+
+  // Fetch books
+  const booksResponse = await fetch(`${SUPABASE_URL}/rest/v1/reading_list?year=eq.2026&order=id.asc`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  })
+  const books = await booksResponse.json()
+  const container = document.getElementById('book-list')
+
+  books.forEach(book => {
+    const reviewed = reviewedTitles.has(book.title)
+    const titleHTML = reviewed
+      ? `<a class="book-title" href="review.html#${titleToId(book.title)}">${book.title}<span class="reviewed-badge">Review</span></a>`
+      : `<span class="book-title">${book.title}</span>`
+
+    container.innerHTML += `
+      <div class="book-row">
+        <span class="book-num">${book.number || ''}</span>
+        <div class="book-title-col">
+          ${titleHTML}
+          <span class="book-note">${book.reader ? book.reader + ' | ' + book.month : book.month}</span>
         </div>
-      `;
-    });
-  </script>
+        <span class="book-author">${book.author || ''}</span>
+        <span class="book-genre">${book.genre || ''}</span>
+        <span class="book-nationality">${book.nationality || ''}</span>
+      </div>
+    `
+  })
+}
+
+  loadBooks()
+</script>
  
 </body>
 </html>
