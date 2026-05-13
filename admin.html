@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Art Public</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000000;
+      color: #FFFFFF;
+      font-family: 'Trebuchet MS', Georgia, serif;
+      line-height: 1.75;
+      padding: 3rem 2rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #d1a2a9;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #d1a2a9;
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #d1a2a9;
+    }
+
+    label {
+      font-family: 'Trebuchet MS', Georgia, serif;
+      display: block;
+      font-size: 0.92rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 0.4rem;
+      margin-top: 1.25rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      color: #FFFFFF;
+      padding: 0.6rem 0.75rem;
+      font-family: 'Trebuchet MS', Georgia, serif;
+      font-size: 0.95rem;
+      border-radius: 2px;
+    }
+
+    ::placeholder {
+        color: #333333;
+        font-family: 'Courier Prime', monospace;
+        font-size: 0.9rem;
+}
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.6rem;
+      background: transparent;
+      border: 1px solid #666193;
+      color: #666193;
+      font-family: 'Trebuchet MS', Georgia, serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    button:hover {
+      background: #666193;
+      color: #FFFFFF;
+    }
+
+    .success {
+      margin-top: 1rem;
+      color: #d1a2a9;
+      font-size: 0.85rem;
+    }
+
+    .error {
+      margin-top: 1rem;
+      color: #ff6b6b;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <h1>Art Public Admin</h1>
+    <button onclick="logout()">Log Out</button>
+  </div>
+
+  <!-- ── ADD BOOK TO READING LIST ── -->
+  <h2>Add to Reading List</h2>
+  <div>
+    <label>Number</label>
+    <input type="text" id="book-number" placeholder="98" />
+
+    <label>Title</label>
+    <input type="text" id="book-title" placeholder="Book title" />
+
+    <label>Author</label>
+    <input type="text" id="book-author" placeholder="Author name" />
+
+    <label>Reader</label>
+    <input type="text" id="book-reader" placeholder="Luke or Naomi" />
+
+    <label>Month</label>
+    <input type="text" id="book-month" placeholder="January" />
+
+    <label>Genre</label>
+    <input type="text" id="book-genre" placeholder="Fiction" />
+
+    <label>Nationality</label>
+    <input type="text" id="book-nationality" placeholder="American" />
+
+    <label>Year</label>
+    <input type="text" id="book-year" placeholder="2026" />
+
+    <button onclick="addBook()">Add Book</button>
+    <p class="success" id="book-success" style="display:none">Book added!</p>
+    <p class="error" id="book-error" style="display:none">Something went wrong.</p>
+  </div>
+
+  <!-- ── ADD REVIEW ── -->
+  <h2>Add Review</h2>
+  <div>
+    <label>Title</label>
+    <input type="text" id="review-title" placeholder="Book title" />
+
+    <label>Author</label>
+    <input type="text" id="review-author" placeholder="Author name" />
+
+    <label>Reviewer</label>
+    <input type="text" id="review-reviewer" placeholder="Luke or Naomi" />
+
+    <label>Genre</label>
+    <input type="text" id="review-genre" placeholder="Fiction" />
+
+    <label>Date</label>
+    <input type="text" id="review-date" placeholder="January 2026" />
+
+    <label>Rating</label>
+    <input type="text" id="review-rating" placeholder="4" />
+
+    <label>Rating Max</label>
+    <input type="text" id="review-rating-max" placeholder="5" />
+
+    <label>Excerpt</label>
+    <textarea id="review-excerpt" placeholder="Short excerpt shown on homepage"></textarea>
+
+    <label>Body (one paragraph per line)</label>
+    <textarea id="review-body" placeholder="Write each paragraph on a new line..." style="min-height: 200px;"></textarea>
+
+    <button onclick="addReview()">Add Review</button>
+    <p class="success" id="review-success" style="display:none">Review added!</p>
+    <p class="error" id="review-error" style="display:none">Something went wrong.</p>
+  </div>
+
+  <!-- ── ADD QUOTE ── -->
+  <h2>Add Quote</h2>
+  <div>
+    <label>Book Title</label>
+    <input type="text" id="quote-book-title" placeholder="Book title" />
+
+    <label>Book Author</label>
+    <input type="text" id="quote-book-author" placeholder="Author name" />
+
+    <label>Selected By</label>
+    <input type="text" id="quote-selected-by" placeholder="Luke or Naomi" />
+
+    <label>Genre</label>
+    <input type="text" id="quote-genre" placeholder="Fiction" />
+
+    <label>Date</label>
+    <input type="text" id="quote-date" placeholder="January 2026" />
+
+    <label>Quote Text</label>
+    <textarea id="quote-text" placeholder="The quote..." style="min-height: 150px;"></textarea>
+
+    <button onclick="addQuote()">Add Quote</button>
+    <p class="success" id="quote-success" style="display:none">Quote added!</p>
+    <p class="error" id="quote-error" style="display:none">Something went wrong.</p>
+  </div>
+
+  <!-- ── ADD AWARD ── -->
+  <h2>Add Award</h2>
+  <div>
+    <label>Year</label>
+    <input type="text" id="award-year" placeholder="2026" />
+
+    <label>Category</label>
+    <input type="text" id="award-category" placeholder="Best Book" />
+
+    <label>Winner</label>
+    <input type="text" id="award-winner" placeholder="Book or character name" />
+
+    <label>Detail</label>
+    <input type="text" id="award-detail" placeholder="Author · Reader · Month" />
+
+    <label>Notes & Nominations</label>
+    <textarea id="award-note" placeholder="Why this won..."></textarea>
+
+    <button onclick="addAward()">Add Award</button>
+    <p class="success" id="award-success" style="display:none">Award added!</p>
+    <p class="error" id="award-error" style="display:none">Something went wrong.</p>
+  </div>
+
+  <script>
+    // Check if logged in
+    const session = localStorage.getItem('sb-session')
+    if (!session) {
+        window.location.href = 'login.html'
+    }
+
+    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+
+    async function postToSupabase(table, data, successId, errorId) {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify(data)
+      })
+
+      const success = document.getElementById(successId)
+      const error = document.getElementById(errorId)
+
+      if (response.ok) {
+        success.style.display = 'block'
+        error.style.display = 'none'
+        setTimeout(() => success.style.display = 'none', 3000)
+      } else {
+        error.style.display = 'block'
+        success.style.display = 'none'
+      }
+    }
+
+    async function addBook() {
+      await postToSupabase('reading_list', {
+        number: document.getElementById('book-number').value,
+        title: document.getElementById('book-title').value,
+        author: document.getElementById('book-author').value,
+        reader: document.getElementById('book-reader').value,
+        month: document.getElementById('book-month').value,
+        genre: document.getElementById('book-genre').value,
+        nationality: document.getElementById('book-nationality').value,
+        year: parseInt(document.getElementById('book-year').value)
+      }, 'book-success', 'book-error')
+    }
+
+    async function addReview() {
+      const bodyText = document.getElementById('review-body').value
+      const paragraphs = bodyText.split('\n').filter(p => p.trim() !== '')
+
+      await postToSupabase('reviews', {
+        title: document.getElementById('review-title').value,
+        author: document.getElementById('review-author').value,
+        reviewer: document.getElementById('review-reviewer').value,
+        genre: document.getElementById('review-genre').value,
+        date: document.getElementById('review-date').value,
+        rating: document.getElementById('review-rating').value,
+        rating_max: document.getElementById('review-rating-max').value,
+        excerpt: document.getElementById('review-excerpt').value,
+        qa: false,
+        body: paragraphs
+      }, 'review-success', 'review-error')
+    }
+
+    async function addQuote() {
+      await postToSupabase('quotes', {
+        book_title: document.getElementById('quote-book-title').value,
+        book_author: document.getElementById('quote-book-author').value,
+        selected_by: document.getElementById('quote-selected-by').value,
+        genre: document.getElementById('quote-genre').value,
+        date: document.getElementById('quote-date').value,
+        quote_text: document.getElementById('quote-text').value
+      }, 'quote-success', 'quote-error')
+    }
+
+    async function addAward() {
+      await postToSupabase('awards', {
+        year: parseInt(document.getElementById('award-year').value),
+        category: document.getElementById('award-category').value,
+        winner: document.getElementById('award-winner').value,
+        detail: document.getElementById('award-detail').value,
+        note: document.getElementById('award-note').value
+      }, 'award-success', 'award-error')
+    }
+    function logout() {
+        localStorage.removeItem('sb-session')
+        window.location.href = 'login.html'}
+  </script>
+
+</body>
+</html>

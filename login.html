@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — Art Public</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000000;
+      color: #FFFFFF;
+      font-family: 'Trebuchet MS', Georgia, serif;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      padding: 3rem 2rem;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      font-family: Georgia, serif;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #6b6560;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6b6560;
+      margin-bottom: 0.4rem;
+      margin-top: 1.25rem;
+    }
+
+    input {
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      color: #FFFFFF;
+      padding: 0.6rem 0.75rem;
+      font-family: 'Trebuchet MS', Georgia, serif;
+      font-size: 0.95rem;
+      border-radius: 2px;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.7rem 1.6rem;
+      background: transparent;
+      border: 1px solid #666193;
+      color: #666193;
+      font-family: 'Trebuchet MS', Georgia, serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    button:hover {
+      background: #666193;
+      color: #FFFFFF;
+    }
+
+    .error {
+      margin-top: 1rem;
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h1>Art Public</h1>
+    <p>Sign in to access the admin panel.</p>
+
+    <label>Email</label>
+    <input type="email" id="email" placeholder="you@example.com" />
+
+    <label>Password</label>
+    <input type="password" id="password" placeholder="••••••••" />
+
+    <button onclick="login()">Sign In</button>
+    <p class="error" id="login-error">Invalid email or password.</p><a href="index.html" style="display: block; text-align: center; margin-top: 1rem; font-size: 0.75rem; letter-spacing: 0.1em; color: #6b6560; text-decoration: none;">Back to Home</a>
+    
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+
+    // If already logged in, go straight to admin
+    const session = localStorage.getItem('sb-session')
+    if (session) {
+      window.location.href = 'admin.html'
+    }
+
+    async function login() {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+
+      const data = await response.json()
+
+      if (data.access_token) {
+        localStorage.setItem('sb-session', JSON.stringify(data))
+        window.location.href = 'admin.html'
+      } else {
+        document.getElementById('login-error').style.display = 'block'
+      }
+    }
+  </script>
+
+</body>
+</html>
