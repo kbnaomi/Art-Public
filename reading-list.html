@@ -280,7 +280,7 @@
       .replace(/\s+/g, '-');
   }
 
-  async function loadBooks() {
+async function loadBooks() {
   // Fetch reviewed titles from Supabase
   const reviewsResponse = await fetch(`${SUPABASE_URL}/rest/v1/reviews?select=title`, {
     headers: {
@@ -289,7 +289,7 @@
     }
   })
   const reviews = await reviewsResponse.json()
-  const reviewedTitles = new Set(reviews.map(r => r.title))
+  const reviewedTitles = new Set(reviews.map(r => r.title.toLowerCase().trim()))
 
   // Fetch books
   const booksResponse = await fetch(`${SUPABASE_URL}/rest/v1/reading_list?year=eq.2026&order=id.asc`, {
@@ -301,15 +301,12 @@
   const books = await booksResponse.json()
   const container = document.getElementById('book-list')
 
-const reviewedTitles = new Set(reviews.map(r => r.title.toLowerCase().trim()))
+  books.forEach(book => {
+    const reviewed = reviewedTitles.has(book.title.toLowerCase().trim())
+    const titleHTML = reviewed
+      ? `<a class="book-title" href="review.html#${titleToId(book.title)}">${book.title}<span class="reviewed-badge">Review</span></a>`
+      : `<span class="book-title">${book.title}</span>`
 
-books.forEach(book => {
-  const reviewed = reviewedTitles.has(book.title.toLowerCase().trim())
-  const titleHTML = reviewed
-    ? `<a class="book-title" href="review.html#${titleToId(book.title)}">${book.title}<span class="reviewed-badge">Review</span></a>`
-    : `<span class="book-title">${book.title}</span>`
-  // ...
-})
     container.innerHTML += `
       <div class="book-row">
         <span class="book-num">${book.number || ''}</span>
