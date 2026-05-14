@@ -296,6 +296,51 @@
     .replace(/\s+/g, '-');
 }
 
+function renderReview(review, isFirst) {
+  let bodyHTML = '';
+
+  if (!review.qa) {
+    bodyHTML = review.body.map(p => `<p>${p}</p>`).join('');
+  } else {
+    bodyHTML = review.body.map((section, i) => {
+      const divider = i > 0
+        ? `<div class="section-break"><span class="section-break-glyph">◆</span></div>`
+        : '';
+      const questionHTML = section.question
+        ? `<p class="question"><strong>${section.question}</strong></p>`
+        : '';
+      const paragraphsHTML = section.paragraphs.map(p => `<p>${p}</p>`).join('');
+      return `${divider}<div class="qa-block">${questionHTML}${paragraphsHTML}</div>`;
+    }).join('');
+  }
+
+  const id = titleToId(review.title);
+  const marginStyle = isFirst ? '' : ' style="margin-top: 0;"';
+
+  return `
+    <article class="review-wrapper" id="${id}"${marginStyle}>
+      <p class="review-label">Book Review</p>
+      <h1 class="review-title">${review.title}</h1>
+      <p class="review-author-book">${review.author}</p>
+      <div class="review-meta">
+        <div class="meta-item">Reviewed by <span>${review.reviewer}</span></div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">Genre <span>${review.genre}</span></div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">Date <span>${review.date}</span></div>
+      </div>
+      <div class="review-body">
+        ${bodyHTML}
+      </div>
+      <div class="review-rating">
+        <span class="rating-label">Rating</span>
+        <span class="rating-value">${review.rating}</span>
+        <span class="rating-max">/ ${review.rating_max}</span>
+      </div>
+    </article>
+  `;
+}
+
 async function loadReviews() {
   const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?order=id.asc`, {
     headers: {
@@ -303,6 +348,7 @@ async function loadReviews() {
       Authorization: `Bearer ${SUPABASE_KEY}`
     }
   })
+
   const reviews = await response.json()
   const container = document.getElementById('reviews-container')
 
@@ -324,58 +370,9 @@ async function loadReviews() {
     }, 100)
   }
 }
-  </script> 
-  <script>
-    function renderReview(review, isFirst) {
-      // Build the body HTML
-      let bodyHTML = '';
- 
-      if (!review.qa) {
-        // Plain paragraphs, no questions
-        bodyHTML = review.body.map(p => `<p>${p}</p>`).join('');
-      } else {
-        // Q&A format — sections may have a question or not
-        bodyHTML = review.body.map((section, i) => {
-          const divider = i > 0
-            ? `<div class="section-break"><span class="section-break-glyph">◆</span></div>`
-            : '';
-          const questionHTML = section.question
-            ? `<p class="question"><strong>${section.question}</strong></p>`
-            : '';
-          const paragraphsHTML = section.paragraphs.map(p => `<p>${p}</p>`).join('');
-          return `${divider}<div class="qa-block">${questionHTML}${paragraphsHTML}</div>`;
-        }).join('');
-      }
- 
-      const id = titleToId(review.title);
-      const marginStyle = isFirst ? '' : ' style="margin-top: 0;"';
- 
-      return `
-        <article class="review-wrapper" id="${id}"${marginStyle}>
-          <p class="review-label">Book Review</p>
-          <h1 class="review-title">${review.title}</h1>
-          <p class="review-author-book">${review.author}</p>
-          <div class="review-meta">
-            <div class="meta-item">Reviewed by <span>${review.reviewer}</span></div>
-            <div class="meta-divider"></div>
-            <div class="meta-item">Genre <span>${review.genre}</span></div>
-            <div class="meta-divider"></div>
-            <div class="meta-item">Date <span>${review.date}</span></div>
-          </div>
-          <div class="review-body">
-            ${bodyHTML}
-          </div>
-          <div class="review-rating">
-            <span class="rating-label">Rating</span>
-            <span class="rating-value">${review.rating}</span>
-            <span class="rating-max">/ ${review.rating_max}</span>
-          </div>
-        </article>
-      `;
-    }
- 
-    const container = document.getElementById('reviews-container');
-  </script>
+
+loadReviews()
+</script>
  
 </body>
 </html>
