@@ -314,6 +314,17 @@
     container.innerHTML += renderReview(review, index === 0)
   })
 }
+
+    // Scroll to anchor if present in URL
+const hash = window.location.hash
+if (hash) {
+  setTimeout(() => {
+    const target = document.querySelector(hash)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, 100)
+}
   
     loadReviews()
   </script>
