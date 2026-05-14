@@ -301,12 +301,15 @@
   const books = await booksResponse.json()
   const container = document.getElementById('book-list')
 
-  books.forEach(book => {
-    const reviewed = reviewedTitles.has(book.title)
-    const titleHTML = reviewed
-      ? `<a class="book-title" href="review.html#${titleToId(book.title)}">${book.title}<span class="reviewed-badge">Review</span></a>`
-      : `<span class="book-title">${book.title}</span>`
+const reviewedTitles = new Set(reviews.map(r => r.title.toLowerCase().trim()))
 
+books.forEach(book => {
+  const reviewed = reviewedTitles.has(book.title.toLowerCase().trim())
+  const titleHTML = reviewed
+    ? `<a class="book-title" href="review.html#${titleToId(book.title)}">${book.title}<span class="reviewed-badge">Review</span></a>`
+    : `<span class="book-title">${book.title}</span>`
+  // ...
+})
     container.innerHTML += `
       <div class="book-row">
         <span class="book-num">${book.number || ''}</span>
