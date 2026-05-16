@@ -232,8 +232,8 @@
         window.location.href = 'login.html'
     }
 
-    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+    const SUPABASE_URL = ''
+    const SUPABASE_KEY = ''
 
     async function postToSupabase(table, data, successId, errorId) {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
@@ -261,57 +261,90 @@
     }
 
     async function addBook() {
-      await postToSupabase('reading_list', {
-        number: document.getElementById('book-number').value,
-        title: document.getElementById('book-title').value,
-        author: document.getElementById('book-author').value,
-        reader: document.getElementById('book-reader').value,
-        month: document.getElementById('book-month').value,
-        genre: document.getElementById('book-genre').value,
-        nationality: document.getElementById('book-nationality').value,
-        year: parseInt(document.getElementById('book-year').value)
-      }, 'book-success', 'book-error')
-    }
+  await postToSupabase('reading_list', {
+    number: document.getElementById('book-number').value,
+    title: document.getElementById('book-title').value,
+    author: document.getElementById('book-author').value,
+    reader: document.getElementById('book-reader').value,
+    month: document.getElementById('book-month').value,
+    genre: document.getElementById('book-genre').value,
+    nationality: document.getElementById('book-nationality').value,
+    year: parseInt(document.getElementById('book-year').value)
+  }, 'book-success', 'book-error')
 
-    async function addReview() {
-      const bodyText = document.getElementById('review-body').value
-      const paragraphs = bodyText.split('\n').filter(p => p.trim() !== '')
+  document.getElementById('book-number').value = ''
+  document.getElementById('book-title').value = ''
+  document.getElementById('book-author').value = ''
+  document.getElementById('book-reader').value = ''
+  document.getElementById('book-month').value = ''
+  document.getElementById('book-genre').value = ''
+  document.getElementById('book-nationality').value = ''
+  document.getElementById('book-year').value = ''
+}
 
-      await postToSupabase('reviews', {
-        title: document.getElementById('review-title').value,
-        author: document.getElementById('review-author').value,
-        reviewer: document.getElementById('review-reviewer').value,
-        genre: document.getElementById('review-genre').value,
-        date: document.getElementById('review-date').value,
-        rating: document.getElementById('review-rating').value,
-        rating_max: document.getElementById('review-rating-max').value,
-        excerpt: document.getElementById('review-excerpt').value,
-        qa: false,
-        body: paragraphs
-      }, 'review-success', 'review-error')
-    }
+async function addReview() {
+  const bodyText = document.getElementById('review-body').value
+  const paragraphs = bodyText.split('\n').filter(p => p.trim() !== '')
 
-    async function addQuote() {
-      await postToSupabase('quotes', {
-        book_title: document.getElementById('quote-book-title').value,
-        book_author: document.getElementById('quote-book-author').value,
-        selected_by: document.getElementById('quote-selected-by').value,
-        genre: document.getElementById('quote-genre').value,
-        date: document.getElementById('quote-date').value,
-        quote_text: document.getElementById('quote-text').value,
-        order: parseInt(document.getElementById('quote-order').value)
-      }, 'quote-success', 'quote-error')
-    }
+  await postToSupabase('reviews', {
+    title: document.getElementById('review-title').value,
+    author: document.getElementById('review-author').value,
+    reviewer: document.getElementById('review-reviewer').value,
+    genre: document.getElementById('review-genre').value,
+    date: document.getElementById('review-date').value,
+    rating: document.getElementById('review-rating').value,
+    rating_max: document.getElementById('review-rating-max').value,
+    excerpt: document.getElementById('review-excerpt').value,
+    qa: false,
+    body: paragraphs
+  }, 'review-success', 'review-error')
 
-    async function addAward() {
-      await postToSupabase('awards', {
-        year: parseInt(document.getElementById('award-year').value),
-        category: document.getElementById('award-category').value,
-        winner: document.getElementById('award-winner').value,
-        detail: document.getElementById('award-detail').value,
-        note: document.getElementById('award-note').value
-      }, 'award-success', 'award-error')
-    }
+  document.getElementById('review-title').value = ''
+  document.getElementById('review-author').value = ''
+  document.getElementById('review-reviewer').value = ''
+  document.getElementById('review-genre').value = ''
+  document.getElementById('review-date').value = ''
+  document.getElementById('review-rating').value = ''
+  document.getElementById('review-rating-max').value = ''
+  document.getElementById('review-excerpt').value = ''
+  document.getElementById('review-body').value = ''
+}
+
+async function addQuote() {
+  await postToSupabase('quotes', {
+    book_title: document.getElementById('quote-book-title').value,
+    book_author: document.getElementById('quote-book-author').value,
+    selected_by: document.getElementById('quote-selected-by').value,
+    genre: document.getElementById('quote-genre').value,
+    date: document.getElementById('quote-date').value,
+    quote_text: document.getElementById('quote-text').value,
+    order: parseInt(document.getElementById('quote-order').value)
+  }, 'quote-success', 'quote-error')
+
+  document.getElementById('quote-book-title').value = ''
+  document.getElementById('quote-book-author').value = ''
+  document.getElementById('quote-selected-by').value = ''
+  document.getElementById('quote-genre').value = ''
+  document.getElementById('quote-date').value = ''
+  document.getElementById('quote-text').value = ''
+  document.getElementById('quote-order').value = ''
+}
+
+async function addAward() {
+  await postToSupabase('awards', {
+    year: parseInt(document.getElementById('award-year').value),
+    category: document.getElementById('award-category').value,
+    winner: document.getElementById('award-winner').value,
+    detail: document.getElementById('award-detail').value,
+    note: document.getElementById('award-note').value
+  }, 'award-success', 'award-error')
+
+  document.getElementById('award-year').value = ''
+  document.getElementById('award-category').value = ''
+  document.getElementById('award-winner').value = ''
+  document.getElementById('award-detail').value = ''
+  document.getElementById('award-note').value = ''
+}
     function logout() {
         localStorage.removeItem('sb-session')
         window.location.href = 'login.html'}
