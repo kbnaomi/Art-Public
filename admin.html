@@ -191,6 +191,9 @@
     <label>Date</label>
     <input type="text" id="quote-date" placeholder="January 2026" />
 
+    <label>Order (Reading List Number)</label>
+    <input type="text" id="quote-order" placeholder="e.g. 84 for Einstein's Dreams" />
+
     <label>Quote Text</label>
     <textarea id="quote-text" placeholder="The quote..." style="min-height: 150px;"></textarea>
 
@@ -229,8 +232,8 @@
         window.location.href = 'login.html'
     }
 
-    const SUPABASE_URL = 'https://bovnudbyavpevxgmlqts.supabase.co'
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvdm51ZGJ5YXZwZXZ4Z21scXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2OTU3MTIsImV4cCI6MjA5MzI3MTcxMn0.1iYpqgwp8-Sq2yCtaavmk7iRQQkf9FAF_yHs6u96jow'
+    const SUPABASE_URL = ''
+    const SUPABASE_KEY = ''
 
     async function postToSupabase(table, data, successId, errorId) {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
@@ -295,7 +298,8 @@
         selected_by: document.getElementById('quote-selected-by').value,
         genre: document.getElementById('quote-genre').value,
         date: document.getElementById('quote-date').value,
-        quote_text: document.getElementById('quote-text').value
+        quote_text: document.getElementById('quote-text').value,
+        order: parseInt(document.getElementById('quote-order').value)
       }, 'quote-success', 'quote-error')
     }
 
